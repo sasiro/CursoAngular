@@ -1,0 +1,11 @@
+<nav>
+    <ul class="nav nav-tabs">
+        <li ng-class="{ 'active': rutaEsHoy()}">
+            <a href="#/series/hoy">Hoy</a>
+        </li>
+        <li ng-class="{ 'active': rutaEsEmision()}">
+            <a href="#/series/emision">En emisión</a>
+        </li>
+    </ul>
+</nav>
+<section app-view-segment="1"></section>

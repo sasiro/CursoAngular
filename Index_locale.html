@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="vendor/angular.js"></script>
+    <script src="vendor/tmhDynamicLocale.js"></script>
+
+    <title></title>
+</head>
+<body ng-app="i18n">
+
+    <div ng-controller="LocaleController">
+        <div>
+            Divisa: {{ divisa | currency }}
+        </div>
+        <div>
+            Fecha: {{fecha | date}}
+        </div>
+        <div>
+            Mayúsculas: {{frase | uppercase}}
+        </div>
+        <button ng-click="intercambiarLocale()"> Intercambiar Locale </button>
+    </div>
+
+
+<script>
+
+    angular.module("i18n",["tmh.dynamicLocale"]);
+
+    angular.module("i18n").config(["tmhDynamicLocaleProvider", function (tmhDynamicLocaleProvider) {
+
+        tmhDynamicLocaleProvider.localeLocationPattern("vendor/angular-locale_{{ locale }}.js");
+
+    }]);
+
+    angular.module("i18n").controller("LocaleController", ["$scope", "tmhDynamicLocale", function ($scope, tmhDynamicLocale) {
+
+        var locale = "es-es"
+        $scope.divisa =  1234.45;
+        $scope.fecha = new Date().getTime();
+        $scope.frase = "esto es una frase";
+        tmhDynamicLocale.set(locale);
+        $scope.intercambiarLocale = function () {
+
+            locale = locale == "es-es" ? "en-us" : "es-es";
+            tmhDynamicLocale.set(locale);
+
+        }
+
+    }]);
+
+
+</script>
+</body>
+</html>
